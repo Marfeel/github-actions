@@ -1,4 +1,4 @@
-const utils = require('../../utils/index.js');
+const utils = require('../../../utils/index.js');
 
 try {
     const ghToken = core.getInput('gh-token');
