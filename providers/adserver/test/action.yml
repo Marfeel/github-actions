@@ -3,4 +3,4 @@ name: 'Test'
 description: 'Testing adserver code passing acid-test and linting'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'main.js'

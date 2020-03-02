@@ -1,16 +1,18 @@
-const { execSync } = require('child_process');
+const utils = require('../../utils/index.js');
 
 try{
-    console.info('✅Checking unit tests...');
-    execSync('npm run adserver-providers test', {stdio: 'inherit'});
-
-    console.info('\n');
-    console.info('📋Checking acid tests...');
-    execSync('npm run adserver-providers acid-test', {stdio: 'inherit'});
-
-    console.info('\n');
-    console.info('🔦Cheking lint...');
-    execSync('npm run adserver-providers lint', {stdio: 'inherit'});
+    utils.execStep(
+        'npm run adserver-providers test',
+        '✅Checking unit tests...'
+    );
+    utils.execStep(
+        'npm run adserver-providers acid-test',
+        '📋Checking acid tests...'
+    );
+    utils.execStep(
+        'npm run adserver-providers lint',
+        '🔦Cheking lint...'
+    );
 } catch (error) {
-    core.setFailed(error.message);
+    utils.setFailed(error.message);
 }

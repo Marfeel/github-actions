@@ -3,4 +3,4 @@ name: 'Build'
 description: 'Building adserver source code and playground'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'main.js'

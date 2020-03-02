@@ -1,15 +1,16 @@
-const { execSync } = require('child_process');
-const core = require('@actions/core');
+const utils = require('../../utils/index.js');
 
 try{
-    const ghToken = core.getInput('gh-token');
+    const ghToken = utils.getInput('gh-token');
 
-    console.info('🔐Config access to marfeel packages...');
-    execSync(`npm config set //npm.pkg.github.com/:_authToken ${ghToken}`, {stdio: 'inherit'});
-
-    console.info('\n');
-    console.info('📦Installing packages...');
-    execSync('npm ci', {stdio: 'inherit'});
+    utils.execStep(
+        `npm config set //npm.pkg.github.com/:_authToken ${ghToken}`,
+        '🔐Config access to marfeel packages...'
+    );
+    utils.execStep(
+        'npm ci',
+        '📦Installing packages...'
+    );
 } catch (error) {
-    core.setFailed(error.message);
+    utils.setFailed(error.message);
 }

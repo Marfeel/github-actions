@@ -3,4 +3,4 @@ name: 'Publish'
 description: 'Publishing adserver source code to gh-packages and playground to gh-pages'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'main.js'
