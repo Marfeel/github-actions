@@ -10,8 +10,8 @@ function getInput(name, options) {
 exports.getInput = getInput;
 
 function setFailed(message) {
-    process.exitCode = ExitCode.Failure;
-    error(message);
+    process.exitCode = 1;
+    console.error(message);
 }
 exports.setFailed = setFailed;
 
