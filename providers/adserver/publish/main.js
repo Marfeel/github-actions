@@ -1,9 +1,9 @@
 const utils = require('../../../utils');
 
 try {
-    const ghToken = core.getInput('gh-token');
-    const awsKey = core.getInput('aws-key');
-    const awsSecret = core.getInput('aws-secret');
+    const ghToken = utils.getInput('gh-token');
+    const awsKey = utils.getInput('aws-key');
+    const awsSecret = utils.getInput('aws-secret');
 
     utils.execStep(
         'npm publish',
