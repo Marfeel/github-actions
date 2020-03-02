@@ -1,0 +1,6 @@
+# action.yml
+name: 'Initialize'
+description: 'Installing packages'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

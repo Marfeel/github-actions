@@ -1,0 +1,19 @@
+{
+  "name": "providers-adserver-test",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "prepack": "ncc build main.js"
+  },
+  "dependencies": {
+    "@zeit/ncc": "^0.21.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:Marfeel/actions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/Marfeel/actions/providers/adserver/test#readme"
+}

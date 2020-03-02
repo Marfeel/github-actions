@@ -1,0 +1,20 @@
+{
+  "name": "providers-adserver-publish",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "prepack": "ncc build main.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.2",
+    "@zeit/ncc": "^0.21.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:Marfeel/adserver-providers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/Marfeel/actions/providers/adserver/publish#readme"
+}
