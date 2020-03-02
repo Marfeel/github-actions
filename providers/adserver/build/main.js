@@ -6,7 +6,7 @@ try{
         '⛏️ Building adserver source code...'
     );
     utils.execStep(
-        'npm ci',
+        'npm run adserver-providers playground:build',
         '🕹 Building playground...'
     );
     utils.execStep(
