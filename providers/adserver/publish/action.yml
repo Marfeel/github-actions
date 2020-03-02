@@ -1,0 +1,6 @@
+# action.yml
+name: 'Publish'
+description: 'Publishing adserver source code to gh-packages and playground to gh-pages'
+runs:
+  using: 'node12'
+  main: 'main.js'
