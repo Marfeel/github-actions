@@ -1,2 +1,3 @@
 /CODEOWNERS @Marfeel/frontend-teachleads
-/.github @Marfeel/alot @Marfeel/ten @Marfeel/berg
+/utils @Marfeel/alot @Marfeel/ten @Marfeel/berg
+/providers/adserver @Marfeel/alot
