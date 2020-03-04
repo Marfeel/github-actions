@@ -10,11 +10,11 @@ try {
         '🚀Publishing adserver 📦Package📦...'
     );
     utils.execStep(
-        `npm run adserver-providers playground:publish -- --gh-token ${ghToken}`,
+        `npx adserver-providers playground:publish -- --gh-token ${ghToken}`,
         '🚀Publishing adserver 🕹Playground🕹...'
     );
     utils.execStep(
-        `npm run adserver-providers publish:s3 -- --aws-key ${awsKey} --aws-secret ${awsSecret}`,
+        `npx adserver-providers publish:s3 -- --aws-key ${awsKey} --aws-secret ${awsSecret}`,
         '🚀Publishing adserver { schema }...'
     );
 } catch (error) {
