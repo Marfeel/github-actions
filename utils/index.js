@@ -22,7 +22,7 @@ function execStep(commands, message) {
     if (commands.isArray) {
         commands.forEach((command) => execCommand(command));
     } else {
-        execCommand(command);
+        execCommand(commands);
     }    
     
     console.info('\n');
