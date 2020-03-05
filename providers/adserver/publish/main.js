@@ -5,20 +5,23 @@ try {
     const awsKey = utils.getInput('aws-key');
     const awsSecret = utils.getInput('aws-secret');
 
+    const userEmail = 'tech@marfeel.com';
+    const userName = 'tech@marfeel.com';
+
     utils.execStep(
         'npm publish',
         '🚀Publishing adserver 📦Package📦...'
     );
     utils.execStep(
-        `npx adserver-providers playground:publish --gh-token ${ghToken}`,
+        [
+            `git config --local user.email '${userEmail}'`,
+            `git config --local user.name '${userName}'`,
+            `npx adserver-providers playground:publish --gh-token ${ghToken}`
+        ],
         '🚀Publishing adserver 🕹Playground🕹...'
     );
     utils.execStep(
-        [
-            'git config --local user.email "tech@marfeel.com"',
-            'git config --local user.name "GitHub Action"',
-            `npx adserver-providers publish:s3 --aws-key ${awsKey} --aws-secret ${awsSecret}`
-        ],
+        `npx adserver-providers publish:s3 --aws-key ${awsKey} --aws-secret ${awsSecret}`,
         '🚀Publishing adserver { schema }...'
     );
 } catch (error) {
