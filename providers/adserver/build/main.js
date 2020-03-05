@@ -2,15 +2,15 @@ const utils = require('../../../utils');
 
 try{
     utils.execStep(
-        'npm run adserver-providers build',
+        'npx adserver-providers build',
         '⛏️ Building adserver source code...'
     );
     utils.execStep(
-        'npm run adserver-providers playground:build',
+        'npx adserver-providers playground:build',
         '🕹 Building playground...'
     );
     utils.execStep(
-        'npm run adserver-providers prepare-schema',
+        'npx adserver-providers prepare-schema',
         '{} Preparing schemas...'
     );
 } catch (error) {
