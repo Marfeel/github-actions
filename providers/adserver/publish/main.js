@@ -6,7 +6,7 @@ try {
     const awsSecret = utils.getInput('aws-secret');
 
     const userEmail = 'tech@marfeel.com';
-    const userName = 'tech@marfeel.com';
+    const userName = 'Github Action';
 
     utils.execStep(
         'npm publish',
