@@ -28,7 +28,7 @@ function execStep(commands, message) {
     console.info('\n');
 }
 
-exports = {
+module.exports = {
     getInput,
     setFailed,
     execStep
