@@ -14,7 +14,11 @@ try {
         '🚀Publishing adserver 🕹Playground🕹...'
     );
     utils.execStep(
-        `npx adserver-providers publish:s3 --aws-key ${awsKey} --aws-secret ${awsSecret}`,
+        [
+            'git config --local user.email "tech@marfeel.com"',
+            'git config --local user.name "GitHub Action"',
+            `npx adserver-providers publish:s3 --aws-key ${awsKey} --aws-secret ${awsSecret}`
+        ],
         '🚀Publishing adserver { schema }...'
     );
 } catch (error) {
