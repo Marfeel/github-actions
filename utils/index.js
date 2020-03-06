@@ -17,7 +17,7 @@ function setFailed(message) {
 
 function execStep(commands, message) {
     console.info(message);
-    const execCommand = (command) => execSync(command, {stdio: 'inherit'});
+    const execCommand = (command) => execSync(command, {stdio: 'inherit', shell: true});
     
     if (commands.isArray) {
         commands.forEach((command) => execCommand(command));
