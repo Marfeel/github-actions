@@ -7,7 +7,7 @@ try {
 
     const userEmail = 'tech@marfeel.com';
     const userName = 'Github Action';
-    
+
     utils.execStep(
         [
             `git config --local user.email '${userEmail}'`,
@@ -17,12 +17,12 @@ try {
         '🚀Publishing adserver 🕹Playground🕹...'
     );
     utils.execStep(
-        'npm publish',
-        '🚀Publishing adserver 📦Package📦...'
-    );
-    utils.execStep(
         `npx adserver-providers publish:s3 --aws-key ${awsKey} --aws-secret ${awsSecret}`,
         '🚀Publishing adserver { schema }...'
+    );
+    utils.execStep(
+        'npm publish',
+        '🚀Publishing adserver 📦Package📦...'
     );
 } catch (error) {
     utils.setFailed(error.message);
