@@ -6,7 +6,7 @@ try{
     const result = execSync(`npm view ${name}@${version}`);
 
     if (result.length !== 0) {
-        setFailed(`Version ${version} already exists`);
+        setFailed(`Version ${version} already exists. Remember to bump the version:\nnpm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease]`);
     }
 } catch (error) {
     setFailed(error.message);
