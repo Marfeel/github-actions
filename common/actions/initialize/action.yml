@@ -3,4 +3,4 @@ name: 'Initialize'
 description: 'Installing packages'
 runs:
   using: 'node12'
-  main: '../../../common/actions/initialize/main.js'
+  main: 'main.js'
