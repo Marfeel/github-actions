@@ -28,8 +28,22 @@ function execStep(commands, message) {
     console.info('\n');
 }
 
+function checkVersionBump() {
+    const { name, version } = require(`${process.cwd()}/package.json`);
+    
+    const result = execSync(
+        `npm view ${name}@${version}`, 
+        '🧐 Checking if version already exists'
+    );
+
+    if (result.length !== 0) {
+        throw `⚠️ Version ${version} already exists. Remember to bump the version:\nnpm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease]`;
+    }
+}
+
 module.exports = {
     getInput,
     setFailed,
-    execStep
+    execStep,
+    checkVersionBump
 };
