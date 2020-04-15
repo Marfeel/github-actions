@@ -14,8 +14,6 @@ try{
         '🔦Checking lint...'
     );
 
-    utils.checkVersionBump();
-
 } catch (error) {
     utils.setFailed(error.message);
 }

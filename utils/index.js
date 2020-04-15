@@ -29,6 +29,8 @@ function execStep(commands, message) {
 }
 
 function checkVersionBump() {
+    console.info('Verifying that current version has not been published already.');
+
     const { name, version } = require(`${process.cwd()}/package.json`);
     
     const result = execSync(
