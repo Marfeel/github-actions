@@ -1,6 +1,0 @@
-# action.yml
-name: 'Initialize'
-description: 'Installing packages'
-runs:
-  using: 'node12'
-  main: '../../common/initialize.js'
