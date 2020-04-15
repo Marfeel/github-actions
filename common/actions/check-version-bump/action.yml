@@ -1,6 +1,0 @@
-# action.yml
-name: 'Check version bump'
-description: 'Verifies that the local package version does not exist already'
-runs:
-  using: 'node12'
-  main: 'main.js'
