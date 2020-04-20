@@ -11,8 +11,9 @@ try{
     );
     utils.execStep(
         'npx adserver-providers lint',
-        '🔦Cheking lint...'
+        '🔦Checking lint...'
     );
+
 } catch (error) {
     utils.setFailed(error.message);
 }

@@ -13,6 +13,9 @@ try{
         'npx adserver-providers prepare-schema',
         '{} Preparing schemas...'
     );
+
+    utils.checkVersionBump();
+    
 } catch (error) {
     utils.setFailed(error.message);
 }
