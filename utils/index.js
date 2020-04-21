@@ -32,10 +32,24 @@ function checkVersionBump() {
     console.info(`Verifying that current version has not been published already.\n`);
 
     const { name, version } = require(`${process.cwd()}/package.json`);
-    
-    const result = execSync(`npm view ${name}@${version}`);
 
-    if (result.length !== 0) {
+    let result;
+    try {
+        result = execSync(`npm view ${name} --json --silent`).toString();
+    } catch (error) {
+        if (error.stdout) {
+            const { error: { code } } = JSON.parse(error.stdout.toString());
+            if (code === 'E404') {
+                // Package has not been published
+                return;
+            }
+        }
+
+        throw error;
+    }
+    const { versions } = JSON.parse(result);
+
+    if (versions.includes(version)) {
         throw new Error(`ERR Version ${version} already exists. Remember to bump the version:\nERR npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease]`);
     }
 }
