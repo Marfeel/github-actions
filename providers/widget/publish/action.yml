@@ -1,0 +1,6 @@
+# action.yml
+name: 'Publish'
+description: 'Publishing widget source code to gh-packages and catalog to gh-pages'
+runs:
+  using: 'node12'
+  main: 'main.js'

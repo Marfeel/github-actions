@@ -1,0 +1,6 @@
+# action.yml
+name: 'Test'
+description: 'Testing and linting widget code'
+runs:
+  using: 'node12'
+  main: 'main.js'

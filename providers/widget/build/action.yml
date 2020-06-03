@@ -1,0 +1,6 @@
+# action.yml
+name: 'Build'
+description: 'Building widget source code and catalog'
+runs:
+  using: 'node12'
+  main: 'main.js'
