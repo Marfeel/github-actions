@@ -2,11 +2,11 @@ const utils = require('../../../utils');
 
 try{
     utils.execStep(
-        'npx provider-cli test --configs-path=@marfeel/widgets-config',
+        'npm test',
         '✅Checking unit tests...'
     );
     utils.execStep(
-        'npx provider-cli lint',
+        'npm run lint',
         '🔦Checking lint...'
     );
 

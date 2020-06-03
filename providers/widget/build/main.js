@@ -2,15 +2,15 @@ const utils = require('../../../utils');
 
 try{
     utils.execStep(
-        'npx provider-cli build -p --configs-path=@marfeel/widgets-config && tsc --emitDeclarationOnly',
+        'npm run build',
         '⛏️ Building widget source code...'
     );
     utils.execStep(
-        'npx provider-cli docs:build --configs-path=@marfeel/widgets-catalog',
+        'npm run build:catalog',
         '🕹 Building catalog...'
     );
     utils.execStep(
-        'npx provider-cli generate:schema',
+        'npm run generate:schema',
         '{} Preparing schemas...'
     );
 
