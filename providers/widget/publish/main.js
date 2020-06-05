@@ -10,7 +10,7 @@ try {
         [
             `git config --local user.email '${userEmail}'`,
             `git config --local user.name '${userName}'`,
-            `npm run publish:catalog -- --gh-token ${ghToken}`
+            `npx provider-cli docs:publish --gh-token ${ghToken}`
         ],
         '🚀Publishing widget 🕹Catalog🕹...'
     );

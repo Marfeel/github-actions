@@ -6,11 +6,11 @@ try{
         '⛏️ Building widget source code...'
     );
     utils.execStep(
-        'npm run build:catalog',
+        'npx provider-cli docs:build --configs-path=@marfeel/widgets-catalog',
         '🕹 Building catalog...'
     );
     utils.execStep(
-        'npm run generate:schema',
+        'npx provider-cli generate:schema',
         '{} Preparing schemas...'
     );
 
