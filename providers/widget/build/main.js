@@ -6,7 +6,7 @@ try{
         '⛏️ Building widget source code...'
     );
     utils.execStep(
-        'npx provider-cli docs:build --configs-path=@marfeel/widgets-providers-catalog',
+        'npx provider-cli docs:build --configs-path=@marfeel/widget-providers-catalog',
         '🕹 Building catalog...'
     );
     utils.execStep(
