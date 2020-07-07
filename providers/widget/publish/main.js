@@ -3,7 +3,7 @@ const utils = require('../../../utils');
 try {
 	const ghToken = utils.getInput('gh-token');
     const snapshotVersion = utils.createSnapShotVersion();
-    const distTag = utils.createDistTag(snapshotVersion);
+    const packageName = utils.getPackageName();
 
 	const userEmail = 'tech@marfeel.com';
     const userName = 'Widget Provider';
@@ -18,7 +18,7 @@ try {
     );
     utils.execStep(
 		`npm publish --tag ${snapshotVersion}`,
-		`npm dist-tag add ${distTag} stable`,
+		`npm dist-tag add ${packageName}@${snapshotVersion} latest`,
         '🚀Publishing widget 📦Package📦...'
     );
 } catch (error) {

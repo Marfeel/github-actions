@@ -8,10 +8,10 @@ function createSnapShotVersion() {
 	return `${version}.snapshot.${buildNumber}`
 }
 
-function createDistTag(version) {
+function getPackageName() {
 	const { name } = packageJson;
-	
-	return `${name}@${version}`;
+
+	return name;
 }
 
 
@@ -75,5 +75,5 @@ module.exports = {
     execStep,
 	checkVersionBump,
 	createSnapShotVersion,
-	createDistTag
+	getPackageName
 };
