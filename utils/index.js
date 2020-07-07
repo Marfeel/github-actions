@@ -5,7 +5,7 @@ function createSnapShotVersion() {
 	const { version } = packageJson;
 	const buildNumber = getInput('build-number');
 
-	return `${version}.snapshot.${buildNumber}`
+	return `${version}-snapshot.${buildNumber}`
 }
 
 function getPackageName() {
