@@ -13,8 +13,6 @@ try{
         'npx provider-cli generate:schema',
         '{} Preparing schemas...'
     );
-
-    utils.checkVersionBump();
     
 } catch (error) {
     utils.setFailed(error.message);

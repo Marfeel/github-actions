@@ -1,4 +1,19 @@
 const { execSync } = require('child_process');
+const packageJson = require(`${process.cwd()}/package.json`);
+
+function createSnapShotVersion() {
+	const { version } = packageJson;
+	const buildNumber = getInput('build-number');
+
+	return `${version}.snapshot.${buildNumber}`
+}
+
+function createDistTag(version) {
+	const { name } = packageJson;
+	
+	return `${name}@${version}`;
+}
+
 
 function getInput(name, options) {
     const val = process.env[`INPUT_${name.replace(/ /g, '_').toUpperCase()}`] || '';
@@ -58,5 +73,7 @@ module.exports = {
     getInput,
     setFailed,
     execStep,
-    checkVersionBump
+	checkVersionBump,
+	createSnapShotVersion,
+	createDistTag
 };
