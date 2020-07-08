@@ -1,15 +1,14 @@
 const { execSync } = require('child_process');
-const packageJson = require(`${process.cwd()}/package.json`);
 
 function createSnapShotVersion() {
-	const { version } = packageJson;
+	const { version } = require(`${process.cwd()}/package.json`);
 	const buildNumber = getInput('build-number');
 
 	return `${version}-snapshot.${buildNumber}`
 }
 
 function getPackageName() {
-	const { name } = packageJson;
+	const { name } = require(`${process.cwd()}/package.json`);
 
 	return name;
 }
