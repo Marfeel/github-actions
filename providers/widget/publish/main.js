@@ -17,9 +17,11 @@ try {
         '🚀Publishing widget 🕹Catalog🕹...'
     );
     utils.execStep(
-		`npm publish --tag ${snapshotVersion}`,
-		`npm dist-tag add ${packageName}@${snapshotVersion} latest`,
+	`npm publish --tag ${snapshotVersion}`,
         '🚀Publishing widget 📦Package📦...'
+    );
+    utils.execStep(
+	`npm dist-tag add ${packageName}@${snapshotVersion} latest`,
     );
 } catch (error) {
     utils.setFailed(error.message);
