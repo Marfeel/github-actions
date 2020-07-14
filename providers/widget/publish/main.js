@@ -2,7 +2,7 @@ const utils = require('../../../utils');
 
 try {
 	const ghToken = utils.getInput('gh-token');
-	const snapshot = utils.createSnapShot();
+	const snapshotTag = utils.createSnapShotTag();
     const { name, version} = utils.getPackageInfo();
 
 	const userEmail = 'tech@marfeel.com';
@@ -17,11 +17,11 @@ try {
         '🚀Publishing widget 🕹Catalog🕹...'
     );
     utils.execStep(
-	`npm publish --tag ${snapshot}`,
+	`npm publish --tag ${snapshotTag}`,
         '🚀Publishing widget 📦Package📦...'
     );
     utils.execStep(
-	`npm dist-tag add ${name}@${version}-${snapshot} latest`,
+	`npm dist-tag add ${name}@${version}-${snapshotTag} latest`,
     );
 } catch (error) {
     utils.setFailed(error.message);

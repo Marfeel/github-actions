@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 
-function createSnapShot() {
+function createSnapShotTag() {
 	const buildNumber = getInput('build-number');
 
 	return `snapshot.${buildNumber}`
@@ -72,6 +72,6 @@ module.exports = {
     setFailed,
     execStep,
 	checkVersionBump,
-	createSnapShot,
+	createSnapShotTag,
 	getPackageInfo
 };
