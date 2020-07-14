@@ -2,8 +2,7 @@ const utils = require('../../../utils');
 
 try {
 	const ghToken = utils.getInput('gh-token');
-	const snapshotTag = utils.createSnapShotTag();
-    const { name, version} = utils.getPackageInfo();
+	const buildNumber = utils.getInput('build-number');
 
 	const userEmail = 'tech@marfeel.com';
     const userName = 'Widget Provider';
@@ -15,14 +14,18 @@ try {
             `npx provider-cli docs:publish --gh-token ${ghToken}`
         ],
         '🚀Publishing widget 🕹Catalog🕹...'
-    );
+	);
+	
+	utils.execStep(
+		`npm i npm-snapshot -g`
+	);
+
     utils.execStep(
-	`npm publish --tag ${snapshotTag}`,
+		`npx npm-snapshot ${buildNumber}`,
+		`npm publish`,
         '🚀Publishing widget 📦Package📦...'
     );
-    utils.execStep(
-	`npm dist-tag add ${name}@${version}-${snapshotTag} latest`,
-    );
+
 } catch (error) {
     utils.setFailed(error.message);
 }

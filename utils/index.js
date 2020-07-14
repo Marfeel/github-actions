@@ -12,7 +12,6 @@ function getPackageInfo() {
 	return { name, version};
 }
 
-
 function getInput(name, options) {
     const val = process.env[`INPUT_${name.replace(/ /g, '_').toUpperCase()}`] || '';
 
