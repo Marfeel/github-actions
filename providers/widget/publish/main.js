@@ -16,10 +16,6 @@ try {
         '🚀Publishing widget 🕹Catalog🕹...'
 	);
 	
-	utils.execStep(
-		`npm i npm-snapshot -g`
-	);
-
     utils.execStep(
 		`npx npm-snapshot ${buildNumber}`,
 		`npm publish`,
