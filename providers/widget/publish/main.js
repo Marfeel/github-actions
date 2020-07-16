@@ -2,7 +2,7 @@ const utils = require('./utils');
 
 try {
 	const ghToken = utils.getInput('gh-token');
-	const runId = utils.getInput('build_number');
+	const buildNumber = utils.getInput('build_number');
     
 	const userEmail = 'tech@marfeel.com';
     const userName = 'Widget Provider';
@@ -17,7 +17,7 @@ try {
 	);
 	
     utils.execStep(
-		`npx npm-snapshot ${runId}`,
+		`npx npm-snapshot ${buildNumber}`,
 	);
 	
 	utils.execStep(
