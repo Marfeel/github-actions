@@ -1,9 +1,9 @@
-const utils = require('../../../utils');
+const utils = require('./utils');
 
 try {
 	const ghToken = utils.getInput('gh-token');
-	const buildNumber = utils.getInput('build-number');
-
+	const runId = utils.getInput('build_number');
+    
 	const userEmail = 'tech@marfeel.com';
     const userName = 'Widget Provider';
 
@@ -17,7 +17,10 @@ try {
 	);
 	
     utils.execStep(
-		`npx npm-snapshot ${buildNumber}`,
+		`npx npm-snapshot ${runId}`,
+	);
+	
+	utils.execStep(
 		`npm publish`,
         '🚀Publishing widget 📦Package📦...'
     );
