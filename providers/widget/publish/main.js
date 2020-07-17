@@ -17,8 +17,10 @@ try {
 	);
 	
     utils.execStep(
-		`npx npm-snapshot ${buildNumber}`,
-		`npm publish`,
+		[
+			`npx npm-snapshot ${buildNumber}`,
+			`npm publish`
+        ],
         '🚀Publishing widget 📦Package📦...'
     );
 
