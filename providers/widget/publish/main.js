@@ -18,7 +18,7 @@ try {
 	
     utils.execStep(
 		[
-			`npx dominguezcelada/npm-snapshot ${buildNumber} snapshot`,
+			`npx github:dominguezcelada/npm-snapshot ${buildNumber} snapshot`,
 			`npm publish`
         ],
         '🚀Publishing widget 📦Package📦...'
