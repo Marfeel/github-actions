@@ -1,16 +1,18 @@
-const utils = require('../../../utils');
+const { getInput, execStep, setFailed } = require('../../../utils');
 
 try{
-    const ghToken = utils.getInput('gh-token');
+    const npmNexusAuth = getInput('nexus-token');
 
-    utils.execStep(
-        `npm config set //npm.pkg.github.com/:_authToken ${ghToken}`,
+    execStep(
+        [`npm config set //repositories.mrf.io/nexus/repository/npm-internal/:_authToken ${npmNexusAuth}`,
+        'npm config set registry https://repositories.mrf.io/nexus/repository/npm-internal/',
+        'npm config set strict-ssl false'],
         '🔐Config access to marfeel packages...'
     );
-    utils.execStep(
+    execStep(
         'npm ci',
         '📦Installing packages...'
     );
 } catch (error) {
-    utils.setFailed(error.message);
+    setFailed(error.message);
 }
