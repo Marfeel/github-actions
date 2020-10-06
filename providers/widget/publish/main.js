@@ -1,32 +1,42 @@
-const utils = require('../../../utils');
+const {
+    getInput,
+    execStep,
+    setFailed
+} = require('../../../utils');
 
 try {
-	const ghToken = utils.getInput('gh-token');
-    const npmNexusAuth = utils.getInput('nexus-token');
-	const buildNumber = utils.getInput('build-number');
+    const ghToken = getInput('gh-token');
+    const npmNexusAuth = getInput('nexus-token');
+    const buildNumber = getInput('build-number');
 
-	const userEmail = 'tech@marfeel.com';
+    const userEmail = 'tech@marfeel.com';
     const userName = 'Widget Provider';
 
-    utils.execStep(
+    execStep(
         [
-            `npm config set //repositories.mrf.io/nexus/repository/npm-internal/:_authToken ${npmNexusAuth}`,
-            'npm config set strict-ssl false',
+            `npm config set //repositories-proxy.mrf.io/nexus/repository/npm-internal/:_authToken ${npmNexusAuth}`,
+            'npm config set strict-ssl false'
+        ],
+        '🔐Config access to marfeel packages...'
+    );
+
+    execStep(
+        [
             `git config --local user.email '${userEmail}'`,
             `git config --local user.name '${userName}'`,
             `npx provider-cli docs:publish --gh-token ${ghToken}`
         ],
         '🚀Publishing widget 🕹Catalog🕹...'
-	);
+    );
 
-    utils.execStep(
-		[
-			`npx github:dominguezcelada/npm-snapshot ${buildNumber} snapshot`,
-			`npm publish`
+    execStep(
+        [
+            `npx github:dominguezcelada/npm-snapshot ${buildNumber} snapshot`,
+            `npm publish`
         ],
         '🚀Publishing widget 📦Package📦...'
     );
 
 } catch (error) {
-    utils.setFailed(error.message);
+    setFailed(error.message);
 }
