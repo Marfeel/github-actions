@@ -5,9 +5,11 @@ try {
     const userName = 'Github Action';
 
     utils.execStep(
-        `git config --local user.email '${userEmail}'`,
-        `git config --local user.name '${userName}'`,
-        'npm publish',
+        [
+            `git config --local user.email '${userEmail}'`,
+            `git config --local user.name '${userName}'`,
+            'npm publish'
+        ],
         '🚀Publishing adserver 📦Package📦...'
     );
 } catch (error) {
