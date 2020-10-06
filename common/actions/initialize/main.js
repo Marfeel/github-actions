@@ -1,16 +1,23 @@
-const utils = require('../../../utils');
+const {
+    execStep,
+    getInput,
+    setFailed
+} = require('../../../utils');
 
-try{
-    const ghToken = utils.getInput('gh-token');
+try {
+    const ghToken = getInput('gh-token');
 
-    utils.execStep(
-        `npm config set //npm.pkg.github.com/:_authToken ${ghToken}`,
-        '🔐Config access to marfeel packages...'
-    );
-    utils.execStep(
+    if (ghToken) {
+        execStep(
+            `npm config set //npm.pkg.github.com/:_authToken ${ghToken}`,
+            '🔐Config access to marfeel packages...'
+        );
+    }
+
+    execStep(
         'npm ci',
         '📦Installing packages...'
     );
 } catch (error) {
-    utils.setFailed(error.message);
+    setFailed(error.message);
 }
