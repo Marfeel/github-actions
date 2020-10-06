@@ -1,0 +1,6 @@
+# action.yml
+name: 'Test'
+description: 'Linting and Testing Analytics code'
+runs:
+  using: 'node12'
+  main: 'main.js'
