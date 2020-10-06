@@ -12,13 +12,15 @@ try {
     const userEmail = 'tech@marfeel.com';
     const userName = 'Widget Provider';
 
-    execStep(
-        [
-            `npm config set //repositories.mrf.io/nexus/repository/npm-internal/:_authToken ${npmNexusAuth}`,
-            'npm config set strict-ssl false'
-        ],
-        '🔐Config access to marfeel packages...'
-    );
+    if (npmNexusAuth) {
+        execStep(
+            [
+                `npm config set //repositories.mrf.io/nexus/repository/npm-internal/:_authToken ${npmNexusAuth}`,
+                'npm config set strict-ssl false'
+            ],
+            '🔐Config access to marfeel packages...'
+        );
+    }
 
     execStep(
         [
