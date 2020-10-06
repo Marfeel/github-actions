@@ -1,0 +1,6 @@
+# action.yml
+name: 'Publish'
+description: 'Publishing Analytics source code to gh-packages, catalog to gh-pages, and extractor & schema to Alexandria'
+runs:
+  using: 'node12'
+  main: 'main.js'

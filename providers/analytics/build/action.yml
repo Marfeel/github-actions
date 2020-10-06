@@ -1,0 +1,6 @@
+# action.yml
+name: 'Build'
+description: 'Building Analytics source & extractor code and playground'
+runs:
+  using: 'node12'
+  main: 'main.js'
