@@ -1,5 +1,5 @@
 const utils = require('../../../utils');
-const npmNexusAuth = getInput('nexus-token');
+const npmNexusAuth = utils.getInput('nexus-token');
 
 try {
     const userEmail = 'tech@marfeel.com';
