@@ -4,6 +4,7 @@ try {
     const ghToken = utils.getInput('gh-token');
     const awsKey = utils.getInput('aws-key');
     const awsSecret = utils.getInput('aws-secret');
+    const npmNexusAuth = utils.getInput('nexus-token');
 
     const userEmail = 'tech@marfeel.com';
     const userName = 'Github Action';
@@ -20,6 +21,17 @@ try {
         `npx adserver-providers publish:s3 --aws-key ${awsKey} --aws-secret ${awsSecret}`,
         '🚀Publishing adserver { schema }...'
     );
+    
+    if (npmNexusAuth) {
+        execStep(
+            [
+                `npm config set //repositories.mrf.io/nexus/repository/npm-internal/:_authToken ${npmNexusAuth}`,
+                'npm config set strict-ssl false'
+            ],
+            '🔐Config access to marfeel packages...'
+        );
+    }
+    
     utils.execStep(
         'npm publish',
         '🚀Publishing adserver 📦Package📦...'
