@@ -8,6 +8,7 @@ try {
         [
             `git config --local user.email '${userEmail}'`,
             `git config --local user.name '${userName}'`,
+            `npm config set //repositories.mrf.io/nexus/repository/npm-internal/:_authToken ${NPM_NEXUS_AUTH} ${{ secrets.NPM_NEXUS_AUTH }}`,
             `npm npm config set strict-ssl false`,
             'npm publish'
         ],
