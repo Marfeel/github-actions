@@ -8,6 +8,7 @@ try {
         [
             `git config --local user.email '${userEmail}'`,
             `git config --local user.name '${userName}'`,
+            `npm npm config set strict-ssl false`,
             'npm publish'
         ],
         '🚀Publishing adserver 📦Package📦...'
