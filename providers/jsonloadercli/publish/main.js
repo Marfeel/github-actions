@@ -23,7 +23,7 @@ try {
             `npx github:dominguezcelada/npm-snapshot ${buildNumber} snapshot`,
             `npm publish`
         ],
-        '🚀 Publishing Analytics 📦 Package 📦...'
+        '🚀 Publishing jsonloader-cli 📦 Package 📦...'
     );
 
 } catch (error) {
