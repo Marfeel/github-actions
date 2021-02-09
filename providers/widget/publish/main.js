@@ -33,7 +33,7 @@ try {
 
     execStep(
         [
-            `npx github:dominguezcelada/npm-snapshot ${buildNumber} snapshot`,
+            `npx npm-snapshot ${buildNumber} snapshot`,
             `npm publish`
         ],
         '🚀Publishing widget 📦Package📦...'
