@@ -1,0 +1,6 @@
+# action.yml
+name: 'Build'
+description: 'Building Paywall provider'
+runs:
+  using: 'node12'
+  main: 'main.js'
