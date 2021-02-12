@@ -5,12 +5,8 @@ const {
 } = require('../../../utils');
 
 try {
-    const ghToken = getInput('gh-token');
     const npmNexusAuth = getInput('nexus-token');
     const buildNumber = getInput('build-number');
-
-    const userEmail = 'tech@marfeel.com';
-    const userName = 'Github Action';
 
     if (npmNexusAuth) {
         execStep(
