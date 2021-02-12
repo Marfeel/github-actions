@@ -1,6 +1,6 @@
 # action.yml
 name: 'Publish'
-description: 'Publishing Paywall source code to gh-packages, catalog to gh-pages'
+description: 'Publishing Paywall source code to gh-packages'
 runs:
   using: 'node12'
   main: 'main.js'
