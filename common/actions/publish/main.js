@@ -23,7 +23,7 @@ try {
             `npx npm-snapshot ${buildNumber} snapshot`,
             `npm publish`
         ],
-        '🚀 Publishing jsonloader-cli 📦 Package 📦...'
+        '🚀 Publishing 📦 Package 📦...'
     );
 
 } catch (error) {
