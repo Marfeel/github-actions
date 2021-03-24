@@ -1,6 +1,6 @@
 # action.yml
-name: 'Publish'
-description: 'Publishing package'
+name: 'Initialize'
+description: 'Installing packages'
 runs:
   using: 'node12'
-  main: 'main.js'
+  main: '../../../common/actions/pubilsh/main.js'
