@@ -1,0 +1,5 @@
+name: 'Purge Fastly'
+description: 'Purge Fastly CDN in order to invaliddate the cache'
+runs:
+  using: 'node12'
+  main: 'main.js'
