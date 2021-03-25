@@ -1,11 +1,5 @@
 name: 'Purge Fastly'
 description: 'Purge Fastly CDN in order to invaliddate the cache'
-on: 
-  workflow_dispatch:
-    inputs:
-      serviceId:
-        description: 'Service id to purge'
-        required: true
 runs:
   using: 'node12'
   main: 'main.js'
