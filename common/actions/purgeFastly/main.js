@@ -10,7 +10,7 @@ try {
 
 	execStep(
 		[
-			`curl -XPOST https://api.fastly.com/service/${serviceId}/purge_all -H "Fastly-Key:${fastlyKey}" -H "Accept:application/json" wait`
+			`curl -XPOST https://api.fastly.com/service/${serviceId}/purge_all -H "Fastly-Key:${fastlyKey}" -H "Accept:application/json"`
 		],
 		'🚽 Purging Fastly CDN...'
 	)
