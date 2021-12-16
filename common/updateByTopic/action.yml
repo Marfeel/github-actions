@@ -1,5 +1,5 @@
 name: 'Update by topic'
 description: 'triggers update manager for updating repos containing the provided topic'
 runs:
-  using: 'node14'
+  using: 'node12'
   main: 'main.js'
