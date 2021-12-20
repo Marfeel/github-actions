@@ -9,7 +9,7 @@ try {
 
 	execStep(
 		[
-			`curl --request POST https://5fh0v4yca1.execute-api.eu-west-1.amazonaws.com/prod/update-manager-topic --data-raw ${JSON.stringify({ topic })}`
+			`curl --request POST https://5fh0v4yca1.execute-api.eu-west-1.amazonaws.com/prod/update-manager-topic -d '${JSON.stringify({ topic })}'`
 		],
 		`Triggering update manager with topic: ${topic}...`
 	)
