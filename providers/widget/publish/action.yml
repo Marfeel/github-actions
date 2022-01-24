@@ -1,6 +1,19 @@
 # action.yml
 name: 'Publish'
 description: 'Publishing widget source code to gh-packages and catalog to gh-pages'
+inputs:
+  gh-token:
+    description: 'github token'
+    required: true
+    default: ''
+  nexus-token:
+    description: 'nexus token'
+    required: true
+    default: ''
+  build-number:
+    description: 'build number'
+    required: true
+    default: 0
 runs:
   using: 'node12'
   main: 'main.js'
