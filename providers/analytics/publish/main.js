@@ -24,14 +24,14 @@ try {
         );
     }
 
-    execStep(
-        [
-            `git config --local user.email '${userEmail}'`,
-            `git config --local user.name '${userName}'`,
-            `npx provider-cli docs:publish --gh-token ${ghToken}`
-        ],
-        '🚀 Publishing Analytics 🕹Playground 🕹...'
-    );
+    // execStep(
+    //     [
+    //         `git config --local user.email '${userEmail}'`,
+    //         `git config --local user.name '${userName}'`,
+    //         `npx provider-cli docs:publish --gh-token ${ghToken}`
+    //     ],
+    //     '🚀 Publishing Analytics 🕹Playground 🕹...'
+    // );
 
     execStep(
         [
