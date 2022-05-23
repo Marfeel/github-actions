@@ -1,0 +1,55 @@
+on:
+  workflow_call:
+    inputs:
+      publicPath:
+        required: true
+        type: string
+      bucket:
+        required: true
+        type: string
+      fastlyService:
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      FASTLY_KEY:
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+
+    - name: 📦 Initialize
+      run: npm ci
+
+    - name: 🛠 Build
+      run: PUBLIC_PATH=${{ inputs.publicPath }} GENERATE_SOURCEMAP=false CI= npm run build
+
+    - name: 🧹 Lint
+      run: npm run lint
+
+    - name: ✅ Tests
+      run: npm run test
+
+    # - name: 🚀 Upload to S3
+    #   if: github.event.repository.name != 'compass-federation-template'
+    #   run: npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }} --cacheControl \"max-age=3600,s-maxage=2592000\" --region eu-west-1
+    #   env:
+    #       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    # - name: 🚽 Purge Fastly
+    #   if: github.event.repository.name != 'compass-federation-template'
+    #   uses: Marfeel/github-actions/common/actions/purgeFastly@master
+    #   with:
+    #     fastly-key: ${{ secrets.FASTLY_KEY }}
+    #     service-id: ${{ inputs.fastlyService }}
