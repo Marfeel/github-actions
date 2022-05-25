@@ -16,7 +16,6 @@ on:
         required: true
       FASTLY_SERVICE:
         required: true
-        type: string
 
 jobs:
   publish:
