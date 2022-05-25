@@ -47,7 +47,7 @@ function checkVersionBump() {
 
         throw error;
     }
-    const { versions } = JSON.parse(result);
+    const { versions } = result ? JSON.parse(result) : { versions: [] };
 
     if (versions.includes(version)) {
         throw new Error(`ERR Version ${version} already exists. Remember to bump the version:\nERR npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease]`);
