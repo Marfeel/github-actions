@@ -23,7 +23,7 @@ try {
         execStep(
             [
                 `npx npm-snapshot ${buildNumber} pr-snapshot`,
-                `npm publish`
+                `npm publish --tag canary`
             ],
             '🚀 Publishing 📦 PR Package 📦...'
         );
