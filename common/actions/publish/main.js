@@ -7,6 +7,7 @@ const {
 try {
     const npmNexusAuth = getInput('nexus-token');
     const buildNumber = getInput('build-number');
+    const isPR = getInput('is-pr');
 
     if (npmNexusAuth) {
         execStep(
@@ -16,6 +17,17 @@ try {
             ],
             '🔐Config access to marfeel packages...'
         );
+    }
+
+    if (isPR === 'true') {
+        execStep(
+            [
+                `npx npm-snapshot ${buildNumber} pr-snapshot`,
+                `npm publish --tag canary`
+            ],
+            '🚀 Publishing 📦 PR Package 📦...'
+        );
+        return;
     }
 
     execStep(
