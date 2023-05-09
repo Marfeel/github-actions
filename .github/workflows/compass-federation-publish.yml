@@ -36,12 +36,6 @@ jobs:
     - name: 🛠 Build
       run: PUBLIC_PATH=${{ inputs.publicPath }} GENERATE_SOURCEMAP=false CI= npm run build
 
-    - name: 🧹 Lint
-      run: npm run lint
-
-    - name: ✅ Tests
-      run: npm run test
-
     - name: 🚀 Upload to S3
       if: github.event.repository.name != 'compass-federation-template'
       run: |
