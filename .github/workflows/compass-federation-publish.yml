@@ -26,21 +26,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v3
       with:
-        node-version: '16.x'
+        node-version-file: '.nvmrc'
 
     - name: 📦 Initialize
       run: npm ci
 
     - name: 🛠 Build
       run: PUBLIC_PATH=${{ inputs.publicPath }} GENERATE_SOURCEMAP=false CI= npm run build
-
-    - name: 🧹 Lint
-      run: npm run lint
-
-    - name: ✅ Tests
-      run: npm run test
 
     - name: 🚀 Upload to S3
       if: github.event.repository.name != 'compass-federation-template'

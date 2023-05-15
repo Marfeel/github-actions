@@ -1,22 +1,72 @@
 on: [workflow_call]
 
 jobs:
+  install:
+    runs-on: ubuntu-latest
+    name: 📦 Install & cache
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            modules-
+      - name: 'Install dependencies'
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  lint:
+    runs-on: ubuntu-latest
+    name: '🧹 Lint'
+    needs: [install]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: modules-${{ hashFiles('**/package-lock.json') }}
+      - name: 'Lint'
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    name: '✅ Tests'
+    needs: [install]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: modules-${{ hashFiles('**/package-lock.json') }}
+      - name: 'Run tests'
+        run: npm run test
+
   build:
     runs-on: ubuntu-latest
+    name: '🚀 Build'
+    needs: [install]
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '16.x'
-
-    - name: 📦 Initialize
-      run: npm ci
-
-    - name: 🛠 Build
-      run: CI= npm run build
-
-    - name: 🧹 Lint
-      run: npm run lint
-
-    - name: ✅ Tests
-      run: npm run test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: modules-${{ hashFiles('**/package-lock.json') }}
+      - name: 'Build'
+        run: CI= npm run build
