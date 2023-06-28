@@ -1,4 +1,11 @@
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      env_vars:
+        description: List of environment variables to set up, given in env=value format.
+        required: false
+        type: string
+
 
 jobs:
   install:
@@ -67,5 +74,12 @@ jobs:
         with:
           path: node_modules
           key: modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Set environment variables
+        if: ${{ inputs.env_vars }}
+        run: |
+          for i in "${{ inputs.env_vars }}"
+          do
+            printf "%s\n" $i >> $GITHUB_ENV
+          done
       - name: 'Build'
         run: CI= npm run build

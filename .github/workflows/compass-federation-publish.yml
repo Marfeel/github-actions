@@ -10,6 +10,10 @@ on:
       remote:
         type: string
         default: remoteEntry.js
+      env_vars:
+        description: List of environment variables to set up, given in env=value format.
+        required: false
+        type: string
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
@@ -29,6 +33,14 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version-file: '.nvmrc'
+
+    - name: Set environment variables
+      if: ${{ inputs.env_vars }}
+      run: |
+        for i in "${{ inputs.env_vars }}"
+        do
+          printf "%s\n" $i >> $GITHUB_ENV
+        done
 
     - name: 📦 Initialize
       run: npm ci
