@@ -122,6 +122,6 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ inputs.version }}
           body: |
-            :woman_scientist: We've  created a preview branch for you! Check your code here: [https://hub.marfeel.com?env=${{ host_var }},https://${{ inputs.bucket }}/version/${{ github.run_number }}/static/js](https://hub.marfeel.com?env=${{ host_var }},https://${{ inputs.bucket }}/version/${{ github.run_number }}/static/js)
+            :woman_scientist: We've  created a preview branch for you! Check your code here: [https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/version/${{ github.run_number }}/static/js](https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/version/${{ github.run_number }}/static/js)
           reactions: rocket
           edit-mode: replace
