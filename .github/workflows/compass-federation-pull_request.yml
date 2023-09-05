@@ -1,11 +1,24 @@
 on:
   workflow_call:
     inputs:
+      bucket:
+        required: true
+        type: string
+      remote:
+        type: string
+        default: remoteEntry.js
       env_vars:
         description: List of environment variables to set up, given in env=value format.
         required: false
         type: string
-
+      host_var:
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
 
 jobs:
   install:
@@ -82,4 +95,33 @@ jobs:
             printf "%s\n" $i >> $GITHUB_ENV
           done
       - name: 'Build'
-        run: CI= npm run build
+        run: PUBLIC_PATH=https://${{ inputs.bucket }}/version/${{ github.run_number }} GENERATE_SOURCEMAP=false CI= npm run build
+
+      - name: 🚀 Upload to S3
+        if: github.event.repository.name != 'compass-federation-template'
+        run: |
+          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/version/${{ github.run_number }} --cacheControl \"max-age=300,s-maxage=2592000\" --region eu-west-1
+          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/version/${{ github.run_number }}  --cacheControl \"max-age=3600,s-maxage=2592000\" --region eu-west-1
+          sleep 10s
+        env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Find PB Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: ${{ inputs.version }}
+          comment-author: 'github-actions[bot]'
+          body-includes: |
+            :woman_scientist: We've  created a preview branch for you! Check your code here:
+
+      - name: Create or update PB comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ inputs.version }}
+          body: |
+            :woman_scientist: We've  created a preview branch for you! Check your code here: [https://hub.marfeel.com?env=${{ host_var }},https://${{ inputs.bucket }}/version/${{ github.run_number }}/static/js](https://hub.marfeel.com?env=${{ host_var }},https://${{ inputs.bucket }}/version/${{ github.run_number }}/static/js)
+          reactions: rocket
+          edit-mode: replace
