@@ -19,6 +19,9 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
+env:
+  VERSION: ${{ github.event.pull_request.number }}
+  REACT_APP_ENV: staging
 
 jobs:
   install:
@@ -95,13 +98,13 @@ jobs:
             printf "%s\n" $i >> $GITHUB_ENV
           done
       - name: 'Build'
-        run: PUBLIC_PATH=https://${{ inputs.bucket }}/pr/${{ github.run_number }} GENERATE_SOURCEMAP=false CI= npm run build
+        run: PUBLIC_PATH=https://${{ inputs.bucket }}/pr/${{ env.VERSION }} GENERATE_SOURCEMAP=false CI= npm run build
 
       - name: 🚀 Upload to S3
         if: github.event.repository.name != 'compass-federation-template'
         run: |
-          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ github.run_number }} --cacheControl \"max-age=300,s-maxage=2592000\" --region eu-west-1
-          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ github.run_number }}  --cacheControl \"max-age=3600,s-maxage=2592000\" --region eu-west-1
+          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl \"max-age=300\" --region eu-west-1
+          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }}  --cacheControl \"max-age=3600\" --region eu-west-1
           sleep 10s
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -111,7 +114,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ inputs.version }}
+          issue-number: ${{ env.version }}
           comment-author: 'github-actions[bot]'
           body-includes: |
             :woman_scientist: We've  created a preview branch for you! Check your code here:
@@ -120,8 +123,8 @@ jobs:
         uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ inputs.version }}
+          issue-number: ${{ env.version }}
           body: |
-            :woman_scientist: We've  created a preview branch for you! Check your code here: [https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/pr/${{ github.run_number }}/static/js](https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/pr/${{ github.run_number }}/static/js)
+            :woman_scientist: We've  created a preview branch for you! Check your code here: [https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/pr/${{ env.VERSION }}/static/js](https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/pr/${{ env.VERSION }}/static/js)
           reactions: rocket
           edit-mode: replace
