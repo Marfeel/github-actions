@@ -114,7 +114,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ env.version }}
+          issue-number: ${{ env.VERSION }}
           comment-author: 'github-actions[bot]'
           body-includes: |
             :woman_scientist: We've  created a preview branch for you! Check your code here:
@@ -123,7 +123,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ env.version }}
+          issue-number: ${{ env.VERSION }}
           body: |
             :woman_scientist: We've  created a preview branch for you! Check your code here: [https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/pr/${{ env.VERSION }}/static/js](https://hub.marfeel.com?env=${{ inputs.host_var }},https://${{ inputs.bucket }}/pr/${{ env.VERSION }}/static/js)
           reactions: rocket
