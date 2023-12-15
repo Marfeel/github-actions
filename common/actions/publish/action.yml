@@ -1,6 +1,16 @@
 # action.yml
 name: 'Publish'
 description: 'Publishing package'
+inputs:
+  nexus-token:
+    description: 'Nexus token'
+    required: true
+  build-number:
+    description: 'Build number'
+    required: true
+  is-pr:
+    description: 'Is pull request'
+    required: false
 runs:
   using: 'node12'
   main: 'main.js'
