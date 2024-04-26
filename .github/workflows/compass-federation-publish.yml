@@ -15,7 +15,7 @@ on:
         required: false
         type: string
       node_options:
-        description: List of environment variables to set up, given in env=value format.
+        description: List of node variables to set up, given in env=value format.
         required: false
         type: string
     secrets:
