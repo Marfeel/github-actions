@@ -14,6 +14,10 @@ on:
         description: List of environment variables to set up, given in env=value format.
         required: false
         type: string
+      node_options:
+        description: List of environment variables to set up, given in env=value format.
+        required: false
+        type: string
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
@@ -44,9 +48,13 @@ jobs:
 
     - name: 📦 Initialize
       run: npm ci
+      env:
+        NODE_OPTIONS: ${{ inputs.node_options }}
 
     - name: 🛠 Build
       run: PUBLIC_PATH=${{ inputs.publicPath }}/v2 GENERATE_SOURCEMAP=false CI= npm run build
+      env:
+        NODE_OPTIONS: ${{ inputs.node_options }}
 
     - name: 🚀 Upload to S3
       if: github.event.repository.name != 'compass-federation-template'
