@@ -14,6 +14,10 @@ on:
       host_var:
         required: true
         type: string
+      node_options:
+        description: List of node variables to set up, given in env=value format.
+        required: false
+        type: string
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
@@ -42,6 +46,8 @@ jobs:
       - name: 'Install dependencies'
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
+        env:
+          NODE_OPTIONS: ${{ inputs.node_options }}
 
   lint:
     runs-on: ubuntu-latest
@@ -59,6 +65,8 @@ jobs:
           key: modules-${{ hashFiles('**/package-lock.json') }}
       - name: 'Lint'
         run: npm run lint
+        env:
+          NODE_OPTIONS: ${{ inputs.node_options }}
 
   test:
     runs-on: ubuntu-latest
@@ -99,6 +107,8 @@ jobs:
           done
       - name: 'Build'
         run: PUBLIC_PATH=https://${{ inputs.bucket }}/pr/${{ env.VERSION }} GENERATE_SOURCEMAP=false CI= npm run build
+        env:
+          NODE_OPTIONS: ${{ inputs.node_options }}
 
       - name: 🚀 Upload to S3
         if: github.event.repository.name != 'compass-federation-template'
@@ -109,6 +119,7 @@ jobs:
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            NODE_OPTIONS: ${{ inputs.node_options }}
 
       - name: Find PB Comment
         uses: peter-evans/find-comment@v2
