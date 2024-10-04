@@ -32,43 +32,43 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v3
-      with:
-        node-version-file: '.nvmrc'
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
 
-    - name: Set environment variables
-      if: ${{ inputs.env_vars }}
-      run: |
-        for i in "${{ inputs.env_vars }}"
-        do
-          printf "%s\n" $i >> $GITHUB_ENV
-        done
+      - name: Set environment variables
+        if: ${{ inputs.env_vars }}
+        run: |
+          for i in "${{ inputs.env_vars }}"
+          do
+            printf "%s\n" $i >> $GITHUB_ENV
+          done
 
-    - name: 📦 Initialize
-      run: npm ci
-      env:
-        NODE_OPTIONS: ${{ inputs.node_options }}
+      - name: 📦 Initialize
+        run: npm ci
+        env:
+          NODE_OPTIONS: ${{ inputs.node_options }}
 
-    - name: 🛠 Build
-      run: PUBLIC_PATH=${{ inputs.publicPath }}/v2 GENERATE_SOURCEMAP=false CI= npm run build
-      env:
-        NODE_OPTIONS: ${{ inputs.node_options }}
+      - name: 🛠 Build
+        run: PUBLIC_PATH=${{ inputs.publicPath }}/v2 GENERATE_SOURCEMAP=false CI= npm run build
+        env:
+          NODE_OPTIONS: ${{ inputs.node_options }}
 
-    - name: 🚀 Upload to S3
-      if: github.event.repository.name != 'compass-federation-template'
-      run: |
-        npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/v2 --cacheControl 'max-age=300, s-maxage=2592000' --region eu-west-1
-        npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/v2 --cacheControl 'max-age=2592000' --region eu-west-1
-        sleep 10s
-      env:
+      - name: 🚀 Upload to S3
+        if: github.event.repository.name != 'compass-federation-template'
+        run: |
+          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/v2 --cacheControl 'max-age=300, s-maxage=2592000' --region eu-west-1
+          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/v2 --cacheControl 'max-age=2592000' --region eu-west-1
+          sleep 10s
+        env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-    - name: 🚽 Purge Fastly
-      if: github.event.repository.name != 'compass-federation-template'
-      uses: Marfeel/github-actions/common/actions/purgeFastly@master
-      with:
-        fastly-key: ${{ secrets.FASTLY_KEY }}
-        service-id: ${{ secrets.FASTLY_SERVICE }}
+      - name: 🚽 Purge Fastly
+        if: github.event.repository.name != 'compass-federation-template'
+        uses: Marfeel/github-actions/common/actions/purgeFastly@master
+        with:
+          fastly-key: ${{ secrets.FASTLY_KEY }}
+          service-id: ${{ secrets.FASTLY_SERVICE }}
