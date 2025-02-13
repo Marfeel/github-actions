@@ -28,6 +28,10 @@ on:
       FASTLY_SERVICE:
         required: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.bucket }}
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
