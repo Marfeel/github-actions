@@ -28,10 +28,6 @@ on:
       FASTLY_SERVICE:
         required: true
 
-concurrency:
-  group: ${{ github.workflow }}-${{ inputs.bucket }}
-  cancel-in-progress: false
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -65,7 +61,7 @@ jobs:
         run: |
           npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/v2 --cacheControl 'max-age=300, s-maxage=2592000' --region eu-west-1
           npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/v2 --cacheControl 'max-age=2592000' --region eu-west-1
-          aws s3api wait object-exists --bucket ${{ inputs.bucket }} --key "v2/${{ inputs.remote }}" --max-attempts 12
+          sleep 10s
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
