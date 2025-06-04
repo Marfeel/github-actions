@@ -113,8 +113,8 @@ jobs:
       - name: 🚀 Upload to S3
         if: github.event.repository.name != 'compass-federation-template'
         run: |
-          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl max-age=300 --region eu-west-1
-          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl max-age=2592000 --region eu-west-1
+          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl 'max-age=300, stale-if-error=2592000' --region eu-west-1 --metadata-directive REPLACE
+          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl 'max-age=2592000, stale-if-error=2592000' --region eu-west-1 --metadata-directive REPLACE
           sleep 10s
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
