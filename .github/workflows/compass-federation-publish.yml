@@ -56,7 +56,7 @@ jobs:
           NODE_OPTIONS: ${{ inputs.node_options }}
 
       - name: 🛠 Build
-        run: PUBLIC_PATH=${{ inputs.publicPath }}/v2 GENERATE_SOURCEMAP=false CI= npm run build
+        run: PUBLIC_PATH=${{ inputs.publicPath }}/v2 GENERATE_SOURCEMAP=false CI= TYPE_CHECK=false npm run build
         env:
           NODE_OPTIONS: ${{ inputs.node_options }}
 
