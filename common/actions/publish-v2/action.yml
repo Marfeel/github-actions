@@ -1,0 +1,16 @@
+name: 'Publish'
+description: 'Publishing package to Nexus registry'
+inputs:
+  nexus-token:
+    description: 'NPM Nexus auth token'
+    required: true
+  build-number:
+    description: 'Build number for snapshot versioning'
+    required: true
+  is-pr:
+    description: 'Whether this is a PR publish'
+    required: false
+    default: 'false'
+runs:
+  using: 'node24'
+  main: 'main.js'
