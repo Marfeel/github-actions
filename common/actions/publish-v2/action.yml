@@ -13,4 +13,4 @@ inputs:
     default: 'false'
 runs:
   using: 'node24'
-  main: '../publish/main.js'
+  main: 'main.js'
