@@ -40,12 +40,14 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: modules-${{ hashFiles('**/package-lock.json') }}
+          key: modules-${{ hashFiles('**/package-lock.json') }}-v2
           restore-keys: |
             modules-
       - name: "Install dependencies"
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: |
+          npm ci
+          npm install s3-deploy
         env:
           NODE_OPTIONS: ${{ inputs.node_options }}
 
@@ -62,7 +64,7 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: modules-${{ hashFiles('**/package-lock.json') }}
+          key: modules-${{ hashFiles('**/package-lock.json') }}-v2
       - name: "Lint"
         run: npm run lint
         env:
@@ -81,7 +83,7 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: modules-${{ hashFiles('**/package-lock.json') }}
+          key: modules-${{ hashFiles('**/package-lock.json') }}-v2
       - name: "Run tests"
         run: npm run test
 
@@ -97,7 +99,7 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: modules-${{ hashFiles('**/package-lock.json') }}
+          key: modules-${{ hashFiles('**/package-lock.json') }}-v2
       - name: Set environment variables
         if: ${{ inputs.env_vars }}
         run: |
@@ -113,8 +115,8 @@ jobs:
       - name: 🚀 Upload to S3
         if: github.event.repository.name != 'compass-federation-template'
         run: |
-          npx s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl 'max-age=300, stale-if-error=2592000' --region eu-west-1 --metadata-directive REPLACE
-          npx s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl 'max-age=2592000, stale-if-error=2592000' --region eu-west-1 --metadata-directive REPLACE
+          npx --no s3-deploy './build/**/${{ inputs.remote }}' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl 'max-age=300, stale-if-error=2592000' --region eu-west-1 --metadata-directive REPLACE
+          npx --no s3-deploy './build/**/*' --cwd './build/' --bucket ${{ inputs.bucket }}/pr/${{ env.VERSION }} --cacheControl 'max-age=2592000, stale-if-error=2592000' --region eu-west-1 --metadata-directive REPLACE
           sleep 10s
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
